@@ -41,3 +41,8 @@
 .polls-form-control .btn:hover {
     box-shadow: 0 0 4px black;
 }
+.polls-form-control .over-max-choice {
+    color: red;
+    font-size: 11px;
+    margin: -5rem 0;
+}

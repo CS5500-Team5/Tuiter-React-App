@@ -9,6 +9,7 @@ import './polls-css.css'
  * 2. Must have at least one choice
  * 3. Do not allow empty choice
  * 4. Do not allow duplicated choices
+ * 5. Maximum Choices are @MAX_CHOICES
  *
  * To interact with the UI, entering choices in Add/Remove Choices field. Then press + or - to
  * add or delete choices.
@@ -16,13 +17,16 @@ import './polls-css.css'
  * Click Clear to clear all the fields.
  * Click Save to generate the JSON format data which will be shown in the console.
  *
- * @return {JSX.Element}
- * @constructor
+ * @return {JSX.Element} A Poll generator
  */
+
+const MAX_CHOICES = 3; //Max Number of Choices
+
 const Polls = () => {
     const [label, setLabel] = useState("");
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
+    const [overWarning, setWarning] = useState("hidden");
 
     /**
      * generate a random ID
@@ -38,6 +42,7 @@ const Polls = () => {
         setChoices([]);
         setEditChoice("");
         setLabel("");
+        setWarning("hidden");
     }
 
     /**
@@ -78,6 +83,12 @@ const Polls = () => {
                 return;
             }
         }
+        if (choices.length >= MAX_CHOICES) {
+            setWarning('visible');
+            return;
+        } else {
+            setWarning('hidden');
+        }
         const choice = {
             Choice: editChoice, _id: randomID()
         }
@@ -103,6 +114,9 @@ const Polls = () => {
             return;
         }
         alert("Choice " + editChoice +" deleted");
+        if (choices.length <= MAX_CHOICES) {
+            setWarning("hidden");
+        }
         setChoices(new_choices);
         setEditChoice('');
     }
@@ -139,6 +153,11 @@ const Polls = () => {
                         <span className={'choice-btn'}
                               onClick={remove}>-</span>
                     </span>
+                </div>
+                <div className="polls-form-control">
+                    <div/>
+                    <span className={'over-max-choice'}
+                          style={{visibility: overWarning}}>Over Max {MAX_CHOICES} Choices!</span>
                 </div>
                 <div className="polls-form-control">
                     <button className={'btn'} type={'button'}
