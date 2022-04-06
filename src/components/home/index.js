@@ -3,6 +3,7 @@ import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
+import "./home.css"
 
 const Home = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const Home = () => {
                 <i className="far fa-face-smile me-3"></i>
                 <i className="far fa-calendar me-3"></i>
                 <i className="far fa-map-location me-3"></i>
+                <i className="far fa-poll"></i>
               </div>
               <div className="col-2">
                 <a onClick={createTuit}
