@@ -4,12 +4,15 @@ import * as service from "../../services/tuits-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import "./home.css"
+import Polls from "../polls";
 
 const Home = () => {
   const location = useLocation();
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
+  const [usePoll, setUsePoll] = useState('none')
+
   const userId = uid;
   const findTuits = () =>
       service.findAllTuits()
@@ -22,6 +25,15 @@ const Home = () => {
   const createTuit = () =>
       service.createTuit('my', {tuit})
           .then(findTuits)
+
+  const togglePoll = () => {
+    if(usePoll === 'none') {
+      setUsePoll('block')
+    } else {
+      setUsePoll('none')
+    }
+  }
+
   return(
     <div className="ttr-home">
       <div className="border border-bottom-0">
@@ -37,6 +49,9 @@ const Home = () => {
                     setTuit(e.target.value)}
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
+            <div style={{display: usePoll}}>
+              <Polls></Polls>
+            </div>
             <div className="row">
               <div className="col-10 ttr-font-size-150pc text-primary">
                 <i className="fas fa-portrait me-3"></i>
@@ -45,7 +60,7 @@ const Home = () => {
                 <i className="far fa-face-smile me-3"></i>
                 <i className="far fa-calendar me-3"></i>
                 <i className="far fa-map-location me-3"></i>
-                <i className="far fa-poll"></i>
+                <i className="far fa-poll" onClick={() => togglePoll()}></i>
               </div>
               <div className="col-2">
                 <a onClick={createTuit}

@@ -39,7 +39,7 @@ function Tuiter () {
               <Route path="/messages" element={<Messages/>}/>
               <Route path="/bookmarks" element={<Bookmarks/>}/>
               <Route path="/lists" element={<Lists/>}/>
-              <Route path="/polls" element={<Polls/>}/>
+              {/*<Route path="/polls" element={<Polls/>}/>*/}
               <Route path="/profile/*" element={<Profile/>}/>
               <Route path="/profile/edit" element={<EditProfile/>}/>
               <Route path="/more" element={<More/>}/>
