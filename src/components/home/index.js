@@ -11,6 +11,7 @@ const Home = () => {
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
+  const [polls, setPolls] = useState({});
   const [usePoll, setUsePoll] = useState('none')
 
   const userId = uid;
@@ -22,9 +23,12 @@ const Home = () => {
     findTuits()
     return () => {isMounted = false;}
   }, []);
-  const createTuit = () =>
-      service.createTuit('my', {tuit})
-          .then(findTuits)
+  const createTuit = () => {
+    console.log({tuit, polls})
+    // service.createTuit('my', {tuit})
+    //     .then(findTuits)
+  }
+
 
   const togglePoll = () => {
     if(usePoll === 'none') {
@@ -50,7 +54,7 @@ const Home = () => {
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
             <div style={{display: usePoll}}>
-              <Polls></Polls>
+              <Polls setPolls={setPolls}/>
             </div>
             <div className="row">
               <div className="col-10 ttr-font-size-150pc text-primary">

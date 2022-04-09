@@ -22,7 +22,7 @@ import './polls-css.css'
 
 const MAX_CHOICES = 3; //Max Number of Choices
 
-const Polls = () => {
+const Polls = ({setPolls}) => {
     const [label, setLabel] = useState("");
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
@@ -65,6 +65,7 @@ const Polls = () => {
 
         form = JSON.stringify(form);
         alert("form saved, check console");
+        setPolls(form)
         console.log(form);
     }
 
