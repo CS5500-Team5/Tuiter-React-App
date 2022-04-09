@@ -23,7 +23,6 @@ import './polls-css.css'
 const MAX_CHOICES = 3; //Max Number of Choices
 
 const Polls = ({setPolls}) => {
-    const [label, setLabel] = useState("");
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
     const [overWarning, setWarning] = useState("hidden");
@@ -41,7 +40,6 @@ const Polls = ({setPolls}) => {
     const handleClear = () => {
         setChoices([]);
         setEditChoice("");
-        setLabel("");
         setWarning("hidden");
     }
 
@@ -49,17 +47,12 @@ const Polls = ({setPolls}) => {
      * Submit the form and post it to the API
      */
     const save = async (e) => {
-        if (label === "") {
-            alert("Question is required");
-            return;
-        }
         if (choices.length < 1) {
             alert("Must have at least one choice");
             return;
         }
 
         let form = {
-            Label: label,
             choices: choices
         }
 
@@ -124,14 +117,6 @@ const Polls = ({setPolls}) => {
 
     return(
             <form className={'trr-polls-form'}>
-                <div className="polls-form-control">
-                    <label>Question </label>
-                    <input type="text"
-                           placeholder={'Required Field'}
-                           value={label}
-                           onChange={(e) =>
-                               setLabel(e.target.value)}/>
-                </div>
                 <div className="polls-form-control">
                     <label>Choices </label>
                     <select>
