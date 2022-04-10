@@ -13,6 +13,8 @@ const Home = () => {
   const [tuit, setTuit] = useState('');
   const [polls, setPolls] = useState({});
   const [usePoll, setUsePoll] = useState('none')
+  const [savedNotice, setSavedNotice] =
+      useState('Please save the Poll before Tuit')
 
   const userId = uid;
   const findTuits = () =>
@@ -24,7 +26,8 @@ const Home = () => {
     return () => {isMounted = false;}
   }, []);
   const createTuit = () => {
-    console.log({tuit, polls})
+    let isPoll = usePoll !== 'none';
+    console.log({tuit, isPoll, polls})
     // service.createTuit('my', {tuit})
     //     .then(findTuits)
   }
@@ -54,7 +57,8 @@ const Home = () => {
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
             <div style={{display: usePoll}}>
-              <Polls setPolls={setPolls}/>
+              <Polls setPolls={setPolls} setSavedNotice={setSavedNotice}/>
+              <span className={"notice"}>{savedNotice}</span>
             </div>
             <div className="row">
               <div className="col-10 ttr-font-size-150pc text-primary">

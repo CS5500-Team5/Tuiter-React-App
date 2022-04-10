@@ -22,7 +22,7 @@ import './polls-css.css'
 
 const MAX_CHOICES = 3; //Max Number of Choices
 
-const Polls = ({setPolls}) => {
+const Polls = ({setPolls, setSavedNotice}) => {
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
     const [overWarning, setWarning] = useState("hidden");
@@ -41,6 +41,7 @@ const Polls = ({setPolls}) => {
         setChoices([]);
         setEditChoice("");
         setWarning("hidden");
+        setSavedNotice('Please save the Poll before Tuit')
     }
 
     /**
@@ -57,9 +58,9 @@ const Polls = ({setPolls}) => {
         }
 
         form = JSON.stringify(form);
-        alert("form saved, check console");
         setPolls(form)
         console.log(form);
+        setSavedNotice('Saved')
     }
 
     /**
@@ -91,6 +92,7 @@ const Polls = ({setPolls}) => {
         // afterwards may replace the mutation. Also, mutate state directly is never a good idea
         // since it may cause some abnormal, break React's idea and slow down the project.
         setEditChoice('');
+        setSavedNotice('Please save the Poll before Tuit')
     }
 
     /**
@@ -113,6 +115,7 @@ const Polls = ({setPolls}) => {
         }
         setChoices(new_choices);
         setEditChoice('');
+        setSavedNotice('Please save the Poll before Tuit')
     }
 
     return(
