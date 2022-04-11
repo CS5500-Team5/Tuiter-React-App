@@ -3,11 +3,19 @@ import React, {useState} from "react";
 import './polldisplay-css.css'
 import Option from "./option";
 
+/**
+ * The component of displaying the poll inside a tuit
+ * @param tuit tuit
+ * @return {JSX.Element} poll component
+ */
 const PollDisplay = ({tuit}) => {
 
+    //the _id of the selected option
     const [selectedKey, setSelectedKey] = useState("")
+    //the _id of previous selected option
     const [preKey, setPreKey] = useState("")
 
+    //keep track of selected key and preSelected key
     const select = (key) => {
         if (key === "") {
             setSelectedKey(key);
@@ -25,6 +33,7 @@ const PollDisplay = ({tuit}) => {
         }
     }
 
+    //get all vote number
     let optionNum = 0;
     tuit.pollOptions.map && tuit.pollOptions.map(
         opt => optionNum += opt.numVoted
