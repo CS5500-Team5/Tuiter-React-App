@@ -17,9 +17,19 @@ const Home = () => {
       useState('Please save the Poll before Tuit')
 
   const userId = uid;
-  const findTuits = () =>
-      service.findAllTuits()
-        .then(tuits => setTuits(tuits));
+  const findTuits = () => {
+    let mockTuits = [
+        {_id: "1", tuit: "tuit-without-poll", postedBy: "user",
+          stats: {replies: 1, retuits: 0, likes: 12 }, isPoll: false, pollOptions: []},
+      {_id: "2", tuit: "tuit-with-poll", postedBy: "user",
+        stats: {replies: 2, retuits: 3, likes: 4 }, isPoll: true,
+        pollOptions:
+            [{_id: "opt1", optionText: "option 1", numVoted: 0},
+          {_id: "opt2", optionText: "option 2", numVoted: 50}]}]
+    setTuits(mockTuits)
+    // service.findAllTuits()
+    //     .then(tuits => setTuits(tuits));
+  }
   useEffect(() => {
     let isMounted = true;
     findTuits()

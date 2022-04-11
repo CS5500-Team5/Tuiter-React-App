@@ -2,6 +2,7 @@ import React from "react";
 import TuitStats from "./tuit-stats";
 import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
+import PollDisplay from "../pollDisplay";
 import {useNavigate, Link} from "react-router-dom";
 
 const Tuit = ({tuit, deleteTuit, likeTuit}) => {
@@ -48,7 +49,10 @@ const Tuit = ({tuit, deleteTuit, likeTuit}) => {
           {tuit.postedBy && tuit.postedBy.username}
           @{tuit.postedBy && tuit.postedBy.username} -
             <span className="ms-1">{daysOld(tuit)}</span></h2>
-        {tuit.tuit}
+
+          {/*if poll, add poll display as tuit context*/}
+          {tuit.isPoll? <PollDisplay tuit={tuit}/> : tuit.tuit}
+
         {
           tuit.youtube &&
             <TuitVideo tuit={tuit}/>

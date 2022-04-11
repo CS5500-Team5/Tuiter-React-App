@@ -5,7 +5,7 @@ import './polls-css.css'
 /**
  * The Poll generator. To create a poll, user needs to specify the choices and the question.
  * The Polls have following features:
- * 1. Question is required
+ * 1. Question is required (deprecated)
  * 2. Must have at least one choice
  * 3. Do not allow empty choice
  * 4. Do not allow duplicated choices
