@@ -50,6 +50,7 @@ label .row{
 label .row .column{
     display: flex;
     align-items: center;
+    position: relative;
 }
 label .row .circle{
     height: 19px;
@@ -101,7 +102,7 @@ input[type="checkbox"]{
     display: none;
 }
 
-.voteNumber {
-    position: relative;
-    right: -286px;
+.column span:nth-of-type(3) {
+    position: absolute;
+    right: 6px;
 }
