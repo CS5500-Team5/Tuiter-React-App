@@ -24,8 +24,9 @@ const Home = () => {
       {_id: "2", tuit: "tuit-with-poll", postedBy: "user",
         stats: {replies: 2, retuits: 3, likes: 4 }, isPoll: true,
         pollOptions:
-            [{_id: "opt1", optionText: "option 1", numVoted: 0},
-          {_id: "opt2", optionText: "option 2", numVoted: 50}]}]
+            [{_id: "opt1", optionText: "option 1", numVoted: 25},
+          {_id: "opt2", optionText: "option 2", numVoted: 50},
+              {_id: "opt3", optionText: "option 3", numVoted: 75}]}]
     setTuits(mockTuits)
     // service.findAllTuits()
     //     .then(tuits => setTuits(tuits));

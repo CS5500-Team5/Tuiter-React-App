@@ -1,11 +1,6 @@
 import React, {useState} from "react";
 
 import './polldisplay-css.css'
-import {Link} from "react-router-dom";
-import TuitStats from "../tuits/tuit-stats";
-import TuitVideo from "../tuits/tuit-video";
-import TuitImage from "../tuits/tuit-image";
-import Tuit from "../tuits/tuit";
 import Option from "./option";
 
 const PollDisplay = ({tuit}) => {
@@ -19,6 +14,11 @@ const PollDisplay = ({tuit}) => {
             else setSelectedKey(key)
         }
     }
+
+    let optionNum = 0;
+    tuit.pollOptions.map && tuit.pollOptions.map(
+        opt => optionNum += opt.numVoted
+    )
 
     return(
         <div className="wrapper">
@@ -34,6 +34,7 @@ const PollDisplay = ({tuit}) => {
                         <Option option={option} key={option._id}
                                 selected={selectedKey === option._id}
                                 selectAll={selectedKey !== ""}
+                                optionNum={optionNum}
                                 onClick={() => select(option._id)}/>
                 )
             }

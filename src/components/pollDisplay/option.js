@@ -2,11 +2,12 @@ import React, {useState} from "react";
 
 import './polldisplay-css.css'
 
-const Option = ({option, selected, onClick, selectAll}) => {
+const Option = ({option, selected, onClick, selectAll, optionNum}) => {
 
     let className = "opt-1 "
     if (selected) className += "selected "
     if (selectAll) className += "selectall "
+    let percent = (option.numVoted / optionNum) * 100 + "%"
 
     return (
         <label htmlFor={"opt-1"}
@@ -23,7 +24,9 @@ const Option = ({option, selected, onClick, selectAll}) => {
                 </div>
                 <span className={"percent"}></span>
             </div>
-            <div className={"progress"} id={"pstyle1"}></div>
+            <div className={"progress"}
+                 id={"pstyle1"}
+                 style={{width: percent, background: "rgba(208,10,10,0.53)"}}></div>
         </label>
     )
 }
