@@ -6,12 +6,22 @@ import Option from "./option";
 const PollDisplay = ({tuit}) => {
 
     const [selectedKey, setSelectedKey] = useState("")
+    const [preKey, setPreKey] = useState("")
 
     const select = (key) => {
-        if (key === "") setSelectedKey(key)
+        if (key === "") {
+            setSelectedKey(key);
+            setPreKey("")
+        }
         else {
-            if (key === selectedKey) setSelectedKey("")
-            else setSelectedKey(key)
+            if (key === selectedKey) {
+                setSelectedKey("");
+                setPreKey(key)
+            }
+            else {
+                setPreKey(selectedKey)
+                setSelectedKey(key)
+            }
         }
     }
 
@@ -33,6 +43,7 @@ const PollDisplay = ({tuit}) => {
                     option =>
                         <Option option={option} key={option._id}
                                 selected={selectedKey === option._id}
+                                preSelected={preKey === option._id}
                                 selectAll={selectedKey !== ""}
                                 optionNum={optionNum}
                                 onClick={() => select(option._id)}/>

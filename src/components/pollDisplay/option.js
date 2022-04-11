@@ -2,10 +2,15 @@ import React, {useState} from "react";
 
 import './polldisplay-css.css'
 
-const Option = ({option, selected, onClick, selectAll, optionNum}) => {
+const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) => {
 
     let className = "opt-1 "
-    if (selected) className += "selected "
+    if (selected) {
+        className += "selected "
+        if (!preSelected) option.numVoted += 0.5
+    } else {
+        if (preSelected) option.numVoted -= 0.5
+    }
     if (selectAll) className += "selectall "
     let percent = (option.numVoted / optionNum) * 100 + "%"
 
@@ -18,7 +23,7 @@ const Option = ({option, selected, onClick, selectAll, optionNum}) => {
                     <span className={"circle"}></span>
                     <span className={"text"}>{option.optionText}</span>
                     <span className={"voteNumber"}
-                          style={{visibility: selected? "visible" : "hidden"}}>
+                          style={{visibility: selectAll? "visible" : "hidden"}}>
                         {option.numVoted}
                     </span>
                 </div>
