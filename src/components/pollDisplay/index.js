@@ -33,6 +33,7 @@ const PollDisplay = ({tuit}) => {
                     option =>
                         <Option option={option} key={option._id}
                                 selected={selectedKey === option._id}
+                                selectAll={selectedKey !== ""}
                                 onClick={() => select(option._id)}/>
                 )
             }
