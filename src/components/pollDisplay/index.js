@@ -10,18 +10,30 @@ import Option from "./option";
 
 const PollDisplay = ({tuit}) => {
 
+    const [selectedKey, setSelectedKey] = useState("")
+
+    const select = (key) => {
+        if (key === "") setSelectedKey(key)
+        else {
+            if (key === selectedKey) setSelectedKey("")
+            else setSelectedKey(key)
+        }
+    }
+
     return(
         <div className="wrapper">
             <header>{tuit.tuit} <br/></header>
             <div className="poll-area">
             {
                 tuit.pollOptions.map && tuit.pollOptions.map(option =>
-                    <input type={"checkbox"} name={"poll"} id={"opt-1"}/>)
+                    <input type={"checkbox"} name={"poll"} id={"opt-1"} key={option._id}/>)
             }
             {
                 tuit.pollOptions.map && tuit.pollOptions.map(
                     option =>
-                        <Option option={option}/>
+                        <Option option={option} key={option._id}
+                                selected={selectedKey === option._id}
+                                onClick={() => select(option._id)}/>
                 )
             }
             </div>
