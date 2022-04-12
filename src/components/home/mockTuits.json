@@ -1,0 +1,16 @@
+[
+  {"_id": "1", "tuit": "tuit-without-poll", "postedBy": "user",
+    "stats": {"replies": 1, "retuits": 0, "likes": 12 }, "isPoll": false, "pollOptions": []},
+  {"_id": "2", "tuit": "tuit-with-poll", "postedBy": "user",
+    "stats": {"replies": 2, "retuits": 3, "likes": 4 }, "isPoll": true, "isPollOpen": true,
+    "pollOptions":
+    [{"_id": "opt1", "optionText": "option 1", "numVoted": 0},
+      {"_id": "opt2", "optionText": "option 2", "numVoted": 0},
+      {"_id": "opt3", "optionText": "option 3", "numVoted": 0}]},
+  {"_id": "3", "tuit": "tuit-with-frozen-poll", "postedBy": "user",
+    "stats": {"replies": 1, "retuits": 2, "likes": 3 }, "isPoll": true, "isPollOpen": false,
+    "pollOptions":
+    [{"_id": "opt11", "optionText": "option 11", "numVoted": 251},
+      {"_id": "opt21", "optionText": "option 21", "numVoted": 501},
+      {"_id": "opt31", "optionText": "option 31", "numVoted": 751}]}
+]

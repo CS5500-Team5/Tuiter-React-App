@@ -1,10 +1,12 @@
 import React from "react";
 import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
+import * as pollService from "../../services/poll-service"
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import "./home.css"
 import Polls from "../polls";
+import mockTuits from "./mockTuits.json"
 
 const Home = () => {
   const location = useLocation();
@@ -22,24 +24,8 @@ const Home = () => {
 
   const userId = uid;
   const findTuits = () => {
-    let mockTuits = [
-        {_id: "1", tuit: "tuit-without-poll", postedBy: "user",
-          stats: {replies: 1, retuits: 0, likes: 12 }, isPoll: false, pollOptions: []},
-      {_id: "2", tuit: "tuit-with-poll", postedBy: "user",
-        stats: {replies: 2, retuits: 3, likes: 4 }, isPoll: true, isPollOpen: true,
-        pollOptions:
-            [{_id: "opt1", optionText: "option 1", numVoted: 25},
-          {_id: "opt2", optionText: "option 2", numVoted: 50},
-              {_id: "opt3", optionText: "option 3", numVoted: 75}]},
-      {_id: "3", tuit: "tuit-with-frozen-poll", postedBy: "user",
-        stats: {replies: 1, retuits: 2, likes: 3 }, isPoll: true, isPollOpen: false,
-        pollOptions:
-            [{_id: "opt11", optionText: "option 11", numVoted: 251},
-              {_id: "opt21", optionText: "option 21", numVoted: 501},
-              {_id: "opt31", optionText: "option 31", numVoted: 751}]}]
     setTuits(mockTuits)
-    // service.findAllTuits()
-    //     .then(tuits => setTuits(tuits));
+    // service.findAllTuits().then(tuits => {setTuits(tuits)});
   }
   useEffect(() => {
     let isMounted = true;

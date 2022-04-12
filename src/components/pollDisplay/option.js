@@ -15,6 +15,7 @@ import './polldisplay-css.css'
 const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) => {
 
     let className = "opt-1 "
+
     if (selected) {
         className += "selected "
         //+= 0.5 since this will be render twice.
@@ -25,7 +26,7 @@ const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) 
     if (selectAll) className += "selectall "
 
     //get the percentage of the vote of the option
-    let percent = (option.numVoted / optionNum) * 100 + "%"
+    let percent = optionNum === 0 ? 0 : (option.numVoted / optionNum) * 100
 
     return (
         <label htmlFor={"opt-1"}
@@ -44,7 +45,7 @@ const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) 
             </div>
             <div className={"progress"}
                  id={"pstyle1"}
-                 style={{width: percent, background: "rgba(208,10,10,0.53)"}}></div>
+                 style={{width: percent + "%", background: "rgba(208,10,10,0.53)"}}></div>
         </label>
     )
 }
