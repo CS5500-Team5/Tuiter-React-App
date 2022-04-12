@@ -12,12 +12,12 @@ const PollDisplay = ({tuit}) => {
 
     //the _id of the selected option
     //The initial state should be the option the user chosen
-    const [selectedKey, setSelectedKey] = useState("")
+    const [selectedKey, setSelectedKey] = useState("opt11")
     //the _id of previous selected option
     //The initial state is ""
     const [preKey, setPreKey] = useState("")
     //if the poll is frozen, it should be pass from the tuit
-    const [freeze, setFreeze] = useState(false)
+    const [freeze, setFreeze] = useState(!tuit.isPollOpen)
 
     //keep track of selected key and preSelected key
     const select = (key) => {
@@ -42,9 +42,14 @@ const PollDisplay = ({tuit}) => {
 
     //toggle freeze the poll
     const toggleFreeze = () => {
+        if (freeze) {
+            setSelectedKey("opt11")
+            setPreKey("opt11")
+        } else {
+            setSelectedKey("PlaceHolding_For_Frozen_Poll")
+            setPreKey("PlaceHolding_For_Frozen_Poll")
+        }
         setFreeze(!freeze)
-        setSelectedKey("PlaceHolding_For_Frozen_Poll")
-        setPreKey("PlaceHolding_For_Frozen_Poll")
     }
 
     //get all vote number
