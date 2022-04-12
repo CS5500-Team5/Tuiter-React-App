@@ -17,11 +17,16 @@ import './polls-css.css'
  * Click Clear to clear all the fields.
  * Click Save to generate the JSON format data which will be shown in the console.
  *
- * @return {JSX.Element} A Poll generator
  */
 
-const MAX_CHOICES = 3; //Max Number of Choices
+const MAX_CHOICES = 7; //Max Number of Choices
 
+/**
+ *
+ * @param setPolls set the poll from the parent
+ * @param setSavedNotice set the notification from the parent
+ * @return {JSX.Element} a poll generator
+ */
 const Polls = ({setPolls, setSavedNotice}) => {
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
@@ -45,7 +50,7 @@ const Polls = ({setPolls, setSavedNotice}) => {
     }
 
     /**
-     * Submit the form and post it to the API
+     * Save the poll
      */
     const save = async (e) => {
         if (choices.length < 1) {

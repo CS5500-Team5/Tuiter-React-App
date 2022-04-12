@@ -11,8 +11,12 @@ const Home = () => {
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
+
+  //polls
   const [polls, setPolls] = useState({});
+  //if the tuit uses the poll
   const [usePoll, setUsePoll] = useState('none')
+  //notification of whether the user saved the poll
   const [savedNotice, setSavedNotice] =
       useState('Please save the Poll before Tuit')
 
@@ -44,6 +48,7 @@ const Home = () => {
   }
 
 
+  //toggle to display the poll generator
   const togglePoll = () => {
     if(usePoll === 'none') {
       setUsePoll('block')
@@ -68,6 +73,7 @@ const Home = () => {
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
             <div style={{display: usePoll}}>
+              {/*Poll Feature*/}
               <Polls setPolls={setPolls} setSavedNotice={setSavedNotice}/>
               <span className={"notice"}>{savedNotice}</span>
             </div>
