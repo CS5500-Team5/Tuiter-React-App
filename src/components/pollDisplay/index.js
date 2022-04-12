@@ -14,9 +14,14 @@ const PollDisplay = ({tuit}) => {
     const [selectedKey, setSelectedKey] = useState("")
     //the _id of previous selected option
     const [preKey, setPreKey] = useState("")
+    //if the poll is frozen
+    const [freeze, setFreeze] = useState(false)
 
     //keep track of selected key and preSelected key
     const select = (key) => {
+        if (freeze) {
+            return;
+        }
         if (key === "") {
             setSelectedKey(key);
             setPreKey("")
@@ -33,6 +38,12 @@ const PollDisplay = ({tuit}) => {
         }
     }
 
+    const toggleFreeze = () => {
+        setFreeze(!freeze)
+        setSelectedKey("PlaceHolding_For_Frozen_Poll")
+        setPreKey("PlaceHolding_For_Frozen_Poll")
+    }
+
     //get all vote number
     let optionNum = 0;
     tuit.pollOptions.map && tuit.pollOptions.map(
@@ -41,7 +52,11 @@ const PollDisplay = ({tuit}) => {
 
     return(
         <div className="wrapper">
-            <header>{tuit.tuit} <br/></header>
+            <header>{tuit.tuit}
+                <button className={"poll-freeze-btn"} onClick={() => toggleFreeze()}>
+                    freeze
+                </button>
+                <br/></header>
             <div className="poll-area">
             {
                 tuit.pollOptions.map && tuit.pollOptions.map(option =>
