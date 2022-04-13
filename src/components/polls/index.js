@@ -58,13 +58,13 @@ const Polls = ({setPolls, setSavedNotice}) => {
             return;
         }
 
-        let form = {
-            choices: choices
-        }
+        // let form = {
+        //     choices: choices
+        // }
 
-        form = JSON.stringify(form);
-        setPolls(form)
-        console.log(form);
+        // form = JSON.stringify(form);
+        setPolls(choices)
+        console.log(choices);
         setSavedNotice('Saved')
     }
 

@@ -15,7 +15,7 @@ const Home = () => {
   const [tuit, setTuit] = useState('');
 
   //polls
-  const [polls, setPolls] = useState({});
+  const [polls, setPolls] = useState([]);
   //if the tuit uses the poll
   const [usePoll, setUsePoll] = useState('none')
   //notification of whether the user saved the poll
@@ -24,8 +24,8 @@ const Home = () => {
 
   const userId = uid;
   const findTuits = () => {
-    setTuits(mockTuits)
-    // service.findAllTuits().then(tuits => {setTuits(tuits)});
+    // setTuits(mockTuits)
+    service.findAllTuits().then(tuits => {setTuits(tuits)});
   }
   useEffect(() => {
     let isMounted = true;
@@ -35,6 +35,35 @@ const Home = () => {
   const createTuit = () => {
     let isPoll = usePoll !== 'none';
     console.log({tuit, isPoll, polls})
+
+    if (tuit.length === 0) {
+      alert("tuit cannot be empty");
+      return;
+    }
+
+    if (isPoll) {
+      if (polls.length === undefined
+          // && polls.toString.length === 0
+      ) {
+        alert("poll cannot be empty");
+        return;
+      }
+
+      pollService.createPoll('my', {tuit, isPoll: true})
+          .then(
+              t => {
+                polls.map(
+                    option => {
+                      pollService.createPollOption(t.postedBy, t._id, {
+                        optionText: option.Choice
+                      })
+                    }
+                )
+              }
+          )
+    }
+
+
     // service.createTuit('my', {tuit})
     //     .then(findTuits)
   }
