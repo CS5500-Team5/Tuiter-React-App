@@ -2,63 +2,41 @@ import React, {useState} from "react";
 
 import './polldisplay-css.css'
 import Option from "./option";
+import * as pollService from "../../services/poll-service"
 
 /**
  * The component of displaying the poll inside a tuit
  * @param tuit tuit
  * @return {JSX.Element} poll component
  */
-const PollDisplay = ({tuit}) => {
-
-    //the _id of the selected option
-    //The initial state should be the option the user chosen
-    const [selectedKey, setSelectedKey] = useState("")
-    //the _id of previous selected option
-    //The initial state is ""
-    const [preKey, setPreKey] = useState("")
-    const [remind, setRemind] = useState("")
-    //if the poll is frozen, it should be pass from the tuit
-    const [freeze, setFreeze] = useState(!tuit.isPollOpen)
-
-    //keep track of selected key and preSelected key
-    const select = (key) => {
-        if (freeze) {
-            return;
-        }
-        if (key === "") {
-            setSelectedKey(key);
-            setPreKey("")
-        }
-        else {
-            if (key === selectedKey) {
-                setSelectedKey("");
-                setPreKey(key)
-            }
-            else {
-                setPreKey(selectedKey)
-                setSelectedKey(key)
-            }
-        }
-    }
-
-    //toggle freeze the poll
-    const toggleFreeze = () => {
-        if (freeze) {
-            setSelectedKey(remind)
-            setPreKey(remind)
-        } else {
-            setRemind(selectedKey)
-            setSelectedKey("PlaceHolding_For_Frozen_Poll")
-            setPreKey("PlaceHolding_For_Frozen_Poll")
-        }
-        setFreeze(!freeze)
-    }
-
+const PollDisplay = ({tuit, vote, createVote, deleteVote}) => {
     //get all vote number
     let optionNum = 0;
-    tuit.pollOptions.map && tuit.pollOptions.map(
-        opt => optionNum += opt.numVoted
-    )
+    tuit.pollOptions.map && tuit.pollOptions.map(opt => optionNum += opt.numVoted)
+    const [open, setOpen] = useState(tuit.isPollOpen)
+
+    const toggleFreeze = async () => {
+        let flag = false;
+        await pollService.findAllPollsByUser("my")
+            .then(tuits => {
+                tuits.map(
+                    t => {
+                        if (t._id === tuit._id) {
+                            flag = true
+                        }
+                    }
+                )
+            })
+        if (flag) {
+            tuit.isPollOpen = !tuit.isPollOpen;
+            setOpen(!open)
+            await pollService.updatePoll(tuit._id, tuit)
+                .then(p => console.log(p));
+            alert(tuit.isPollOpen ? "poll open" : "poll frozen");
+            return
+        }
+        alert("you can only freeze your poll");
+    }
 
     return(
         <div className="wrapper">
@@ -76,11 +54,11 @@ const PollDisplay = ({tuit}) => {
                 tuit.pollOptions.map && tuit.pollOptions.map(
                     option =>
                         <Option option={option} key={option._id}
-                                selected={selectedKey === option._id}
-                                preSelected={preKey === option._id}
-                                selectAll={selectedKey !== ""}
+                                vote={vote}
+                                tid={tuit._id}
                                 optionNum={optionNum}
-                                onClick={() => select(option._id)}/>
+                                isPollOpen={open}
+                                createVote={createVote} deleteVote={deleteVote}/>
                 )
             }
             </div>

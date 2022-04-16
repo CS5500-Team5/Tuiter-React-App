@@ -28,8 +28,8 @@ export const createPollOption = (uid, tid, option) =>
     api.post(`${USERS_API}/${uid}/polls/${tid}/option`, option)
         .then(response => response.data);
 
-export const updatePoll = (tid, poll) =>
-    api.post(`${POLLS_API}/${tid}`, poll)
+export const updatePoll = (uid, poll) =>
+    api.put(`${POLLS_API}/${uid}`, poll)
         .then(response => response.data);
 
 export const deletePoll = (tid) =>

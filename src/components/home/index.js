@@ -41,8 +41,9 @@ const Home = () => {
       return;
     }
 
+    console.log(polls)
     if (isPoll) {
-      if (polls.length === undefined
+      if (polls.length === 0
           // && polls.toString.length === 0
       ) {
         alert("poll cannot be empty");

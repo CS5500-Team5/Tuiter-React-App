@@ -5,25 +5,35 @@ import './polldisplay-css.css'
 /**
  * Option component in poll component
  * @param option option detail
- * @param selected if the option is selected
- * @param preSelected if the option is pre selected
- * @param onClick onclick listener
- * @param selectAll if any option is selected
- * @param optionNum the total number of vote in this poll
- * @return {JSX.Element} Option component
+ * @param vote vote id, "" if did not vote
+ * @param tid tuit id
+ * @param optionNum total number of votes
+ * @param isPollOpen if the poll is open or frozen
+ * @return {JSX.Element} poll display component
  */
-const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) => {
+const Option = ({option, vote, tid, optionNum, isPollOpen, createVote, deleteVote}) => {
 
-    let className = "opt-1 "
+    let className = "opt-1 ";
+    if (vote === option._id) className += "selected ";
+    if (vote !== "") className += "selectall ";
 
-    if (selected) {
-        className += "selected "
-        //+= 0.5 since this will be render twice.
-        if (!preSelected) option.numVoted += 0.5
-    } else {
-        if (preSelected) option.numVoted -= 0.5
+    const choose = () => {
+        if(!isPollOpen) {
+            return;
+        }
+        //if want to unvote
+        if (option._id === vote) {
+            deleteVote("my", tid, option._id)
+        } else if (vote === "") {
+            //if did not vote before
+            createVote("my", tid, option._id)
+        } else {
+            //if change vote
+            createVote("my", tid, option._id)
+                .then(deleteVote("my", tid, vote))
+        }
+        // window.location.reload()
     }
-    if (selectAll) className += "selectall "
 
     //get the percentage of the vote of the option
     let percent = optionNum === 0 ? 0 : (option.numVoted / optionNum) * 100
@@ -31,13 +41,13 @@ const Option = ({option, selected, preSelected, onClick, selectAll, optionNum}) 
     return (
         <label htmlFor={"opt-1"}
                className={className}
-               onClick={onClick}>
+               onClick={choose}>
             <div className={"row"}>
                 <div className={"column"}>
                     <span className={"circle"}></span>
                     <span className={"text"}>{option.optionText}</span>
                     <span className={"voteNumber"}
-                          style={{visibility: selectAll? "visible" : "hidden"}}>
+                          style={{visibility: vote !== ""? "visible" : "hidden"}}>
                         {option.numVoted}
                     </span>
                 </div>
