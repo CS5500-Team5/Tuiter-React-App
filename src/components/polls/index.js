@@ -5,11 +5,12 @@ import './polls-css.css'
 /**
  * The Poll generator. To create a poll, user needs to specify the choices and the question.
  * The Polls have following features:
- * 1. Question is required (deprecated)
+ * 1. Question is required
  * 2. Must have at least one choice
- * 3. Do not allow empty choice
+ * 3. Do not allow empty choice, include string only contains white spaces
  * 4. Do not allow duplicated choices
  * 5. Maximum Choices are @MAX_CHOICES
+ * 6. Save Poll before tuit
  *
  * To interact with the UI, entering choices in Add/Remove Choices field. Then press + or - to
  * add or delete choices.
