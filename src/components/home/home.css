@@ -1,0 +1,7 @@
+.fa-poll:hover {
+    text-shadow: 0 0 1px black;
+    cursor: pointer;
+}
+.notice {
+    color: #fb616e;
+}

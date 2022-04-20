@@ -3,12 +3,19 @@ import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
+import "./home.css"
+import Polls from "../polls";
 
 const Home = () => {
   const location = useLocation();
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
+  const [polls, setPolls] = useState({});
+  const [usePoll, setUsePoll] = useState('none')
+  const [savedNotice, setSavedNotice] =
+      useState('Please save the Poll before Tuit')
+
   const userId = uid;
   const findTuits = () =>
       service.findAllTuits()
@@ -18,9 +25,22 @@ const Home = () => {
     findTuits()
     return () => {isMounted = false;}
   }, []);
-  const createTuit = () =>
-      service.createTuit('my', {tuit})
-          .then(findTuits)
+  const createTuit = () => {
+    let isPoll = usePoll !== 'none';
+    console.log({tuit, isPoll, polls})
+    // service.createTuit('my', {tuit})
+    //     .then(findTuits)
+  }
+
+
+  const togglePoll = () => {
+    if(usePoll === 'none') {
+      setUsePoll('block')
+    } else {
+      setUsePoll('none')
+    }
+  }
+
   return(
     <div className="ttr-home">
       <div className="border border-bottom-0">
@@ -36,6 +56,10 @@ const Home = () => {
                     setTuit(e.target.value)}
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
+            <div style={{display: usePoll}}>
+              <Polls setPolls={setPolls} setSavedNotice={setSavedNotice}/>
+              <span className={"notice"}>{savedNotice}</span>
+            </div>
             <div className="row">
               <div className="col-10 ttr-font-size-150pc text-primary">
                 <i className="fas fa-portrait me-3"></i>
@@ -44,6 +68,7 @@ const Home = () => {
                 <i className="far fa-face-smile me-3"></i>
                 <i className="far fa-calendar me-3"></i>
                 <i className="far fa-map-location me-3"></i>
+                <i className="far fa-poll" onClick={() => togglePoll()}></i>
               </div>
               <div className="col-2">
                 <a onClick={createTuit}

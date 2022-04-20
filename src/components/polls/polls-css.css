@@ -1,0 +1,48 @@
+
+.trr-polls-form {
+    background: white;
+    max-width: 550px;
+    margin: 0 auto 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 0.3rem;
+}
+.trr-polls-form input {
+    border-radius: 0.3rem;
+    padding: 0.25rem 0.1rem;
+    font-size: medium;
+}
+.polls-form-control {
+    margin: 0.5rem 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+}
+.polls-form-control .choice-btn {
+    display: inline-block;
+    padding: 0.45rem;
+}
+.polls-form-control .choice-btn:hover {
+    text-shadow: 0 0 4px black;
+    cursor: pointer;
+}
+.polls-form-control .btn {
+    display: inline-block;
+    background: white;
+    color: black;
+    border-color: black;
+    margin: 1rem 5rem 0 0;
+    letter-spacing: 0.1rem;
+    padding: 0.45rem;
+    text-transform: capitalize;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: medium;
+}
+.polls-form-control .btn:hover {
+    box-shadow: 0 0 4px black;
+}
+.polls-form-control .over-max-choice {
+    color: red;
+    font-size: 11px;
+    margin: -5rem 0;
+}
