@@ -1,25 +1,32 @@
 import React from "react";
 import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
+import * as pollService from "../../services/poll-service"
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import "./home.css"
 import Polls from "../polls";
+import mockTuits from "./mockTuits.json"
 
 const Home = () => {
   const location = useLocation();
   const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
-  const [polls, setPolls] = useState({});
+
+  //polls
+  const [polls, setPolls] = useState([]);
+  //if the tuit uses the poll
   const [usePoll, setUsePoll] = useState('none')
+  //notification of whether the user saved the poll
   const [savedNotice, setSavedNotice] =
       useState('Please save the Poll before Tuit')
 
   const userId = uid;
-  const findTuits = () =>
-      service.findAllTuits()
-        .then(tuits => setTuits(tuits));
+  const findTuits = () => {
+    // setTuits(mockTuits)
+    service.findAllTuits().then(tuits => {setTuits(tuits)});
+  }
   useEffect(() => {
     let isMounted = true;
     findTuits()
@@ -28,11 +35,42 @@ const Home = () => {
   const createTuit = () => {
     let isPoll = usePoll !== 'none';
     console.log({tuit, isPoll, polls})
+
+    if (tuit.length === 0) {
+      alert("tuit cannot be empty");
+      return;
+    }
+
+    console.log(polls)
+    if (isPoll) {
+      if (polls.length === 0
+          // && polls.toString.length === 0
+      ) {
+        alert("poll cannot be empty");
+        return;
+      }
+
+      pollService.createPoll('my', {tuit, isPoll: true})
+          .then(
+              t => {
+                polls.map(
+                    option => {
+                      pollService.createPollOption(t.postedBy, t._id, {
+                        optionText: option.Choice
+                      })
+                    }
+                )
+              }
+          )
+    }
+
+
     // service.createTuit('my', {tuit})
     //     .then(findTuits)
   }
 
 
+  //toggle to display the poll generator
   const togglePoll = () => {
     if(usePoll === 'none') {
       setUsePoll('block')
@@ -57,6 +95,7 @@ const Home = () => {
               placeholder="What's happening?"
               className="w-100 border-0"></textarea>
             <div style={{display: usePoll}}>
+              {/*Poll Feature*/}
               <Polls setPolls={setPolls} setSavedNotice={setSavedNotice}/>
               <span className={"notice"}>{savedNotice}</span>
             </div>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TuitStats from "./tuit-stats";
 import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
+import PollDisplay from "../pollDisplay";
 import {useNavigate, Link} from "react-router-dom";
+import * as voteService from "../../services/vote-service"
 
-const Tuit = ({tuit, deleteTuit, likeTuit}) => {
+
+const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
     const navigate = useNavigate();
     const daysOld = (tuit) => {
         const now = new Date();
@@ -28,6 +31,17 @@ const Tuit = ({tuit, deleteTuit, likeTuit}) => {
         }
         return old;
     }
+    const [vote, setVote] = useState("");
+    voteService.findVoteByUserOnTuit(tuit._id, "my")
+        .then(v => setVote(v[0] === undefined ? "" : v[0].votedOption._id))
+
+    const createVote = (uid, tid, poid) =>
+        voteService.createVote(uid, tid, poid)
+            .then(refersh);
+    const deleteVote = (uid, tid, poid) =>
+        voteService.deleteVote(uid, tid, poid)
+            .then(refersh);
+
   return(
     // <li onClick={() => navigate(`/tuit/${tuit._id}`)}
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
@@ -48,7 +62,13 @@ const Tuit = ({tuit, deleteTuit, likeTuit}) => {
           {tuit.postedBy && tuit.postedBy.username}
           @{tuit.postedBy && tuit.postedBy.username} -
             <span className="ms-1">{daysOld(tuit)}</span></h2>
-        {tuit.tuit}
+
+          {/*if poll, add poll display as tuit context*/}
+          {tuit.isPoll? <PollDisplay tuit={tuit}
+                                     vote={vote}
+                                     createVote={createVote}
+                                     deleteVote={deleteVote}/> : tuit.tuit}
+
         {
           tuit.youtube &&
             <TuitVideo tuit={tuit}/>

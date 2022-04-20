@@ -7,9 +7,10 @@ import './polls-css.css'
  * The Polls have following features:
  * 1. Question is required
  * 2. Must have at least one choice
- * 3. Do not allow empty choice
+ * 3. Do not allow empty choice, include string only contains white spaces
  * 4. Do not allow duplicated choices
  * 5. Maximum Choices are @MAX_CHOICES
+ * 6. Save Poll before tuit
  *
  * To interact with the UI, entering choices in Add/Remove Choices field. Then press + or - to
  * add or delete choices.
@@ -17,11 +18,16 @@ import './polls-css.css'
  * Click Clear to clear all the fields.
  * Click Save to generate the JSON format data which will be shown in the console.
  *
- * @return {JSX.Element} A Poll generator
  */
 
-const MAX_CHOICES = 3; //Max Number of Choices
+const MAX_CHOICES = 7; //Max Number of Choices
 
+/**
+ *
+ * @param setPolls set the poll from the parent
+ * @param setSavedNotice set the notification from the parent
+ * @return {JSX.Element} a poll generator
+ */
 const Polls = ({setPolls, setSavedNotice}) => {
     const [choices, setChoices] = useState([]);
     const [editChoice, setEditChoice] = useState( "");
@@ -45,7 +51,7 @@ const Polls = ({setPolls, setSavedNotice}) => {
     }
 
     /**
-     * Submit the form and post it to the API
+     * Save the poll
      */
     const save = async (e) => {
         if (choices.length < 1) {
@@ -53,13 +59,13 @@ const Polls = ({setPolls, setSavedNotice}) => {
             return;
         }
 
-        let form = {
-            choices: choices
-        }
+        // let form = {
+        //     choices: choices
+        // }
 
-        form = JSON.stringify(form);
-        setPolls(form)
-        console.log(form);
+        // form = JSON.stringify(form);
+        setPolls(choices)
+        console.log(choices);
         setSavedNotice('Saved')
     }
 
