@@ -1,13 +1,16 @@
 import {useState} from "react";
 import * as service from "../../services/security-service";
 import {useNavigate} from "react-router-dom";
+import { ReactSession } from 'react-client-session';
 
 const Signup = () => {
     const [newUser, setNewUser] = useState({});
     const navigate = useNavigate();
     const signup = () =>
         service.register(newUser)
-            .then(() => navigate('/home'))
+            .then(() => {
+                ReactSession.set("Username", newUser.username);
+                return navigate('/home');})
             .catch(e => alert(e));
     return (
         <div>

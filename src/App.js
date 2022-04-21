@@ -6,8 +6,10 @@ import './styles.css';
 // import WhatsHappening from "./components/whats-happening/whats-happening";
 // import Bookmarks from "./components/bookmarks/bookmarks";
 import Tuiter from "./components/tuiter";
+import { ReactSession } from 'react-client-session';
 
 function App() {
+  ReactSession.setStoreType("sessionStorage");
   return (
     <Tuiter/>
   );

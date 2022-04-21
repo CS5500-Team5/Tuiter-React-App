@@ -64,7 +64,8 @@ const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
             <span className="ms-1">{daysOld(tuit)}</span></h2>
 
           {/*if poll, add poll display as tuit context*/}
-          {tuit.isPoll? <PollDisplay tuit={tuit}
+          {tuit.isPoll? <PollDisplay text={tuit.isPollOpen === true ? "Freeze" : "Unfreeze"}
+                                     tuit={tuit}
                                      vote={vote}
                                      createVote={createVote}
                                      deleteVote={deleteVote}/> : tuit.tuit}
