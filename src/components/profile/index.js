@@ -5,6 +5,7 @@ import * as service from "../../services/security-service"
 import TuitsAndReplies from "./tuits-and-replies";
 import Media from "./media";
 import MyLikes from "./my-likes";
+import { ReactSession } from 'react-client-session';
 const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,7 +20,9 @@ const Profile = () => {
   }, []);
   const logout = () => {
     service.logout()
-        .then(() => navigate('/login'));
+        .then(() => {
+          ReactSession.remove('Username');
+          return navigate('/login');});
   }
   return(
     <div className="ttr-profile">
