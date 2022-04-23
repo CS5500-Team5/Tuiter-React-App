@@ -52,10 +52,15 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
     return(
         <div className="wrapper">
             <header>{tuit.tuit}
-            {userId === tuit.postedBy.username &&
-                <button className={"poll-freeze-btn"} onClick={() => toggleFreeze()}>
+            {userId === tuit.postedBy.username ?
+                (<button className={"poll-freeze-btn"} onClick={() => toggleFreeze()}>
                     {buttonText}
-                </button>   
+                </button>) :
+                (
+                    <div className={"poll-freeze-btn"}>
+                        {text === "Unfreeze" ? "Closed" : "Active"}
+                    </div>
+                )
             }
                 <br/></header>
             <div className="poll-area">
