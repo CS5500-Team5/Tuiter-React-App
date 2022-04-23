@@ -61,7 +61,7 @@ const Home = () => {
                     }
                 )
               }
-          )
+          ).then(() => window.location.reload())
     }
 
 
