@@ -62,11 +62,10 @@ const Home = () => {
                 )
               }
           ).then(() => window.location.reload())
+    } else {
+      service.createTuit('my', {tuit})
+          .then(() => window.location.reload())
     }
-
-
-    // service.createTuit('my', {tuit})
-    //     .then(findTuits)
   }
 
 
