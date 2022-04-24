@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import {createUser, deleteUsersByUsername} from "../services/users-service";
 import {
     createPoll,
@@ -15,9 +18,7 @@ describe('create a poll', () => {
         password: 't',
         email: 't@t.com'
     };
-    const tuit = {
-        "tuit": "test1 tuit"
-    };
+    const tuit = "test1 tuit";
     const options = [
         "option1", "option2"
     ]
@@ -52,7 +53,7 @@ describe('create a poll', () => {
         //check if the poll exists in the database
         const res = allPoll.filter(p => p._id === Tid);
         expect(res.length).toBeGreaterThanOrEqual(1);
-        expect(res[0].pollOptions.length).toEqual(0);
+        expect(res[0].pollOptions).toStrictEqual([]);
 
         //create options for the poll
         const opt1 = await createPollOption(Uid, Tid, {
@@ -64,9 +65,12 @@ describe('create a poll', () => {
         })
         Opt2id = opt2._id;
 
-        const poll = findPollById(Tid);
-        expect(poll[0].pollOptions.length).toBeGreaterThanOrEqual(2);
-        expect(poll[0].pollOptions[0].optionText).toBe("option1")
-        expect(poll[0].pollOptions[1].optionText).toBe("option2")
+        const poll = await findPollById(Tid);
+        expect(poll.pollOptions.length).toBeGreaterThanOrEqual(2);
+        poll.pollOptions.map(
+            c => {
+                expect(options).toContain(c.optionText)
+            }
+        )
     });
 });
