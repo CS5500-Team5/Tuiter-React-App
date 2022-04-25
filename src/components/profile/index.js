@@ -6,6 +6,7 @@ import TuitsAndReplies from "./tuits-and-replies";
 import Media from "./media";
 import MyLikes from "./my-likes";
 import MyDislikes from "./my-dislikes";
+import Polls from "./my-polls";
 import { ReactSession } from 'react-client-session';
 const Profile = () => {
   const navigate = useNavigate();
@@ -96,6 +97,11 @@ const Profile = () => {
                     className={`nav-link ${location.pathname.indexOf('dislikes') >= 0 ? 'active':''}`}>
                 Dislikes</Link>
             </li>
+            <li className="nav-item">
+              <Link to="/profile/polls"
+                    className={`nav-link ${location.pathname.indexOf('polls') >= 0 ? 'active':''}`}>
+                Polls</Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -105,6 +111,7 @@ const Profile = () => {
           <Route path="/media" element={<Media/>}/>
           <Route path="/likes" element={<MyLikes/>}/>
           <Route path="/dislikes" element={<MyDislikes/>}/>
+          <Route path="/polls" element={<Polls/>}/>
         </Routes>
     </div>
   );
