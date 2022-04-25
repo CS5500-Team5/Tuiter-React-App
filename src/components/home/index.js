@@ -56,7 +56,8 @@ const Home = () => {
                 polls.map(
                     option => {
                       pollService.createPollOption(t.postedBy, t._id, {
-                        optionText: option.Choice
+                        optionText: option.Choice,
+                        tuit: t._id
                       })
                     }
                 )
