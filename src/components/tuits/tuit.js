@@ -7,7 +7,7 @@ import {useNavigate, Link} from "react-router-dom";
 import * as voteService from "../../services/vote-service"
 
 
-const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
+const Tuit = ({tuit, deleteTuit, likeTuit, dislikeTuit, refersh}) => {
     const navigate = useNavigate();
     const daysOld = (tuit) => {
         const now = new Date();
@@ -78,7 +78,7 @@ const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
           tuit.image &&
           <TuitImage tuit={tuit}/>
         }
-        <TuitStats tuit={tuit} likeTuit={likeTuit}/>
+        <TuitStats tuit={tuit} likeTuit={likeTuit} dislikeTuit = {dislikeTuit}/>
       </div>
     </li>
   );
