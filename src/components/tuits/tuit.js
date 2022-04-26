@@ -8,7 +8,7 @@ import * as voteService from "../../services/vote-service"
 import {deletePoll} from "../../services/poll-service";
 
 
-const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
+const Tuit = ({tuit, deleteTuit, likeTuit, dislikeTuit, refersh}) => {
     const navigate = useNavigate();
     const daysOld = (tuit) => {
         const now = new Date();
@@ -82,7 +82,7 @@ const Tuit = ({tuit, deleteTuit, likeTuit, refersh}) => {
           tuit.image &&
           <TuitImage tuit={tuit}/>
         }
-        <TuitStats tuit={tuit} likeTuit={likeTuit}/>
+        <TuitStats tuit={tuit} likeTuit={likeTuit} dislikeTuit = {dislikeTuit}/>
       </div>
     </li>
   );

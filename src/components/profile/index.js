@@ -5,6 +5,7 @@ import * as service from "../../services/security-service"
 import TuitsAndReplies from "./tuits-and-replies";
 import Media from "./media";
 import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes";
 import Polls from "./my-polls";
 import { ReactSession } from 'react-client-session';
 const Profile = () => {
@@ -92,6 +93,11 @@ const Profile = () => {
                 Likes</Link>
             </li>
             <li className="nav-item">
+              <Link to="/profile/thumbsdown"
+                    className={`nav-link ${location.pathname.indexOf('thumbsdown') >= 0 ? 'active':''}`}>
+                Dislikes</Link>
+            </li>
+            <li className="nav-item">
               <Link to="/profile/polls"
                     className={`nav-link ${location.pathname.indexOf('polls') >= 0 ? 'active':''}`}>
                 Polls</Link>
@@ -104,6 +110,7 @@ const Profile = () => {
           <Route path="/tuits-and-replies" element={<TuitsAndReplies/>}/>
           <Route path="/media" element={<Media/>}/>
           <Route path="/likes" element={<MyLikes/>}/>
+          <Route path="/thumbsdown" element={<MyDislikes/>}/>
           <Route path="/polls" element={<Polls/>}/>
         </Routes>
     </div>
