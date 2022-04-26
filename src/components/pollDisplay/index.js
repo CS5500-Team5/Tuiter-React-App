@@ -7,8 +7,12 @@ import { ReactSession } from 'react-client-session';
 
 /**
  * The component of displaying the poll inside a tuit
+ * @param text text of the status button
  * @param tuit tuit
- * @return {JSX.Element} poll component
+ * @param vote vote id, empty if user did not have any vote in this poll
+ * @param createVote function to create a vote
+ * @param deleteVote function to delete a vote
+ * poll component
  */
 const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
     //get all vote number
@@ -21,6 +25,7 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
     //console.log(userId)
     //console.log(tuit.postedBy.username)
 
+    //toggle freeze the poll
     const toggleFreeze = async () => {
         let flag = false;
         await pollService.findAllPollsByUser("my")
@@ -33,6 +38,7 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
                     }
                 )
             })
+        //if it is the poll created by the user, then the user can freeze it.
         if (flag) {
             tuit.isPollOpen = !tuit.isPollOpen;
             if(!tuit.isPollOpen){
@@ -46,6 +52,7 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
             alert(tuit.isPollOpen ? "poll open" : "poll frozen");
             return
         }
+        //otherwise, show alert
         alert("you can only freeze your poll");
     }
 

@@ -42,6 +42,7 @@ const Home = () => {
     }
 
     console.log(polls)
+    //check if the poll is empty
     if (isPoll) {
       if (polls.length === 0
           // && polls.toString.length === 0
@@ -50,6 +51,7 @@ const Home = () => {
         return;
       }
 
+      //create a poll
       pollService.createPoll('my', {tuit, isPoll: true})
           .then(
               t => {
@@ -64,6 +66,7 @@ const Home = () => {
               }
           ).then(() => window.location.reload())
     } else {
+      //create a tuit
       service.createTuit('my', {tuit})
           .then(() => window.location.reload())
     }
