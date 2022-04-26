@@ -9,15 +9,19 @@ import './polldisplay-css.css'
  * @param tid tuit id
  * @param optionNum total number of votes
  * @param isPollOpen if the poll is open or frozen
+ * @param createVote create vote function
+ * @param deleteVote delete vote function
  * @return {JSX.Element} poll display component
  */
 const Option = ({option, vote, tid, optionNum, isPollOpen, createVote, deleteVote}) => {
 
     let className = "opt-1 ";
+    //show progress bar if the user vote for this option
     if (vote === option._id) className += "selected ";
     if (vote !== "") className += "selectall ";
 
     const choose = () => {
+        //do nothing if poll is closed
         if(!isPollOpen) {
             return;
         }
