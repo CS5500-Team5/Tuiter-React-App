@@ -9,7 +9,7 @@ const Signup = () => {
     const signup = () =>
         service.register(newUser)
             .then(() => {
-                ReactSession.set("Username", newUser.username);
+                ReactSession.set("UserId", newUser._id);
                 return navigate('/home');})
             .catch(e => alert(e));
     return (
