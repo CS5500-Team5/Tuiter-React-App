@@ -6,7 +6,7 @@ import PollDisplay from "../pollDisplay";
 import {useNavigate, Link} from "react-router-dom";
 import * as voteService from "../../services/vote-service"
 import {deletePoll} from "../../services/poll-service";
-
+import { ReactSession } from 'react-client-session';
 
 const Tuit = ({tuit, deleteTuit, likeTuit, dislikeTuit, refersh}) => {
     const navigate = useNavigate();
@@ -42,6 +42,7 @@ const Tuit = ({tuit, deleteTuit, likeTuit, dislikeTuit, refersh}) => {
     const deleteVote = (uid, tid, poid) =>
         voteService.deleteVote(uid, tid, poid)
             .then(refersh);
+    const userId = ReactSession.get("UserId");
 
   return(
     // <li onClick={() => navigate(`/tuit/${tuit._id}`)}
@@ -54,10 +55,12 @@ const Tuit = ({tuit, deleteTuit, likeTuit, dislikeTuit, refersh}) => {
         }
       </div>
       <div className="w-100">
+        {userId === tuit.postedBy._id &&
           <i onClick={() => {
               if (tuit.isPoll) deletePoll(tuit._id);
               deleteTuit(tuit._id);
           }} className="fas fa-remove fa-2x fa-pull-right"></i>
+        }
           <Link to={`/tuit/${tuit._id}`}>
           <i className="float-end fas fa-circle-ellipsis me-1"></i>
           </Link>

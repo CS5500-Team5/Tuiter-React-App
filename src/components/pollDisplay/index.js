@@ -17,7 +17,7 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
     const [open, setOpen] = useState(tuit.isPollOpen)
     const [buttonText, setButtonText] = useState(text)
 
-    const userId = ReactSession.get("Username");
+    const userId = ReactSession.get("UserId");
     //console.log(userId)
     //console.log(tuit.postedBy.username)
 
@@ -52,7 +52,7 @@ const PollDisplay = ({text, tuit, vote, createVote, deleteVote}) => {
     return(
         <div className="wrapper">
             <header>{tuit.tuit}
-            {userId === tuit.postedBy.username ?
+            {userId === tuit.postedBy._id ?
                 (<button className={"poll-freeze-btn"} onClick={() => toggleFreeze()}>
                     {buttonText}
                 </button>) :

@@ -10,7 +10,7 @@ export const Login = () => {
     const login = () =>
         service.login(loginUser)
             .then((user) => {
-                ReactSession.set("Username", user.username);
+                ReactSession.set("UserId", user._id);
                 return navigate('/profile/mytuits');})
             .catch(e => alert(e));
     return (

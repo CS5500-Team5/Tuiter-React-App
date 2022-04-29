@@ -23,7 +23,7 @@ const Profile = () => {
   const logout = () => {
     service.logout()
         .then(() => {
-          ReactSession.remove('Username');
+          ReactSession.remove('UserId');
           return navigate('/login');});
   }
   return(
